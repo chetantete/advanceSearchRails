@@ -1,0 +1,96 @@
+<nav>
+  
+</nav>
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="col-lg-2" ></div>
+  <div class="col-lg-8">
+    <div class="ibox product-detail">
+      <div class="ibox-content">
+        <h2 class="font-bold m-b-xs"> ADVANCED SEARCH </h2>
+        <br>
+        <%= form_tag "articles", id: "form", method: :get do %>
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label>Category:</label>
+              <%= select_tag "category", options_for_select(categories), class: 'form-control'%>
+            </div>
+          </div>
+           <div class="col-lg-3">
+            <div class="form-group">
+              <label>Author:</label>
+              <%= select_tag "author", options_for_select(authors), class: 'form-control'%>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <label>Title:</label>
+            <input type="text" class="form-control" placeholder="Any" name="title" id="title">
+          </div>  
+        </div>
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label>Description:</label>
+              <input type="text" class="form-control" placeholder="Any" name="description" id="min_sqr_ft_id"> 
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label>Feedback:</label>
+              <%= select_tag "feedback", options_for_select(['Any','Good','Average','Poor']), class: 'form-control'%>
+            </div>
+          </div>
+          <div class="col-lg-3" >
+            <div class="form-group">
+              <label></label>
+              <input type="submit" class="form-control btn-danger" value="Search" id="btn_adv_search">
+            </div>
+          </div>
+        </div>
+        <!-- </form> -->
+        <%end%>
+      </div>
+    </div>
+ 
+
+    <br> 
+    <%= link_to 'New Article', new_article_path %>
+    <br>
+    <% if @articles.blank?%>
+    <div class="row">'
+      <h2>Search criteria does not match</h2>
+    </div>
+    <% else %>
+    <h1>Articles</h1>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Author</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @articles.each do |article| %>
+          <tr>
+            <td><%= article.title %></td>
+            <td><%= article.category %></td>
+            <td><%= link_to article.description, article %></td>
+            <td><%= article.author %></td>
+            <td></td>
+            <td><%= link_to 'Edit', edit_article_path(article) %></td>
+            <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+    <br>
+   
+  </div>
+</div>

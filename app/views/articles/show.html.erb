@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-lg-2" ></div>
+  <div class="col-lg-8">
+	<p id="notice"><%= notice %></p>
+
+	<p>
+	  <strong>Title:</strong>
+	  <%= @article.title %>
+	</p>
+
+	<p>
+	  <strong>Category:</strong>
+	  <%= @article.category %>
+	</p>
+
+	<p>
+	  <strong>Description:</strong>
+	  <%= @article.description %>
+	</p>
+
+	<p>
+	  <strong>Author:</strong>
+	  <%= @article.author %>
+	</p>
+
+	<%= link_to 'Edit', edit_article_path(@article) %> |
+	<%= link_to 'Back', articles_path %>
+
+
+	<h2>Comments</h2>
+	<% @article.comments.each do |comment| %>
+	  <p>
+	    <strong>Commenter:</strong>
+	    <%= comment.commentor %>
+	  </p>
+	 
+	  <p>
+	    <strong>Body:</strong>
+	    <%= comment.body %>
+	  </p>
+	  <p>
+	    <strong>Feedback:</strong>
+	    <%= comment.feedback %>
+	  </p>
+	   <%= link_to 'Destroy Comment', [comment.article, comment],
+	               method: :delete,
+	               data: { confirm: 'Are you sure?' } %>
+	<% end %>
+
+
+
+
+	<h2>Add a comment:</h2>
+	<%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+	  <p>
+	    <%= form.label :feedback %><br>
+	    <%= form.select "feedback", options_for_select(['Good','Average','Poor']), class: 'form-control',id: :comment_feedback%>
+	  </p>
+	  <p>
+	    <%= form.label :commenter %><br>
+	    <%= form.text_field :commentor %>
+	  </p>
+	  <p>
+	    <%= form.label :body %><br>
+	    <%= form.text_area :body %>
+	  </p>
+
+	  <p>
+	    <%= form.submit %>
+	  </p>
+	<% end %>
+	</div>
+	</div>
+ 
